@@ -1,0 +1,25 @@
+.featured {
+  position: relative;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 5px 20px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: fit-content;
+  background: rgba(52, 168, 83, 0.15);
+  color: #34a853;
+}
+
+.img-container .img-wrapper {
+  width: 100px;
+  height: 100%;
+  margin: auto;
+  position: relative;
+}
+
+.img-container img {
+  border-radius: 50%;
+  max-width: 100%;
+  height: auto;
+}

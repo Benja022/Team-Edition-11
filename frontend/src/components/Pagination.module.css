@@ -1,0 +1,67 @@
+.pagination {
+  position: relative;
+  margin: 5px 0 20px 0;
+  display: block;
+}
+.pagination ul {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+.number-container {
+  position: relative;
+  margin: 0 5px;
+  font-size: 14px;
+  color: dimgray;
+  line-height: 45px;
+  min-width: 45px;
+  font-weight: 400;
+  text-align: center;
+}
+.number {
+  text-decoration: none;
+  cursor: pointer;
+}
+.number {
+  position: relative;
+  display: block;
+  color: dimgray;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.number:hover {
+  background: #1967d2;
+  color: #fff;
+}
+.number-active {
+  display: block;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  background: #1967d2;
+  color: #fff;
+}
+
+.pagination .prev,
+.pagination .next {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.pagination .prev:hover,
+.pagination .next:hover {
+  background: transparent;
+  color: #1967d2;
+  cursor: pointer;
+}
+
+.pagination .prev-hidden,
+.pagination .next-hidden {
+  visibility: hidden;
+}

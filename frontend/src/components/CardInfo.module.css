@@ -1,0 +1,39 @@
+.info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.info-name {
+  font-size: 16px;
+  color: #202124;
+  line-height: 24px;
+  margin-bottom: 6px;
+}
+
+.info-role {
+  display: block;
+  font-size: 14px;
+  color: #1967d2;
+  line-height: 20px;
+  margin-bottom: 9px;
+}
+
+.view-profile {
+  width: 100%;
+  text-align: center;
+  background-color: #e2eaf8;
+  color: #1967d2;
+  font-size: 15px;
+  line-height: 20px;
+  border-radius: 8px;
+  padding: 18px 35px 15px;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.view-profile:hover{
+  background-color: #0146a6;
+  color: #fff;
+}
