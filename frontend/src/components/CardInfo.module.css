@@ -16,7 +16,7 @@
 .info-role {
   display: block;
   font-size: 14px;
-  color: #1967d2;
+  color: var(--dark-green);
   line-height: 20px;
   margin-bottom: 9px;
 }
@@ -24,8 +24,8 @@
 .view-profile {
   width: 100%;
   text-align: center;
-  background-color: #e2eaf8;
-  color: #1967d2;
+  background-color: var(--green);
+  color: var(--white);
   font-size: 15px;
   line-height: 20px;
   border-radius: 8px;
@@ -34,6 +34,7 @@
   overflow: hidden;
 }
 .view-profile:hover{
-  background-color: #0146a6;
-  color: #fff;
+  background-color: var(--light-green);
+  color: var(--white);
+  border: 1px solid var(--green);
 }

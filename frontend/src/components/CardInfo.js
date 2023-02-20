@@ -7,9 +7,9 @@ function CardInfo(props) {
     <>
     <div className={classes["info-container"]}>
         <h3 className={classes["info-name"]} >
-          {props.candidate.title} {props.candidate.last_name}
+          {props.candidate.firstName} {props.candidate.lastName}
         </h3>
-        <p className={classes["info-role"]}>{props.candidate.role}</p>
+        <p className={classes["info-role"]}>{props.candidate.bootcamp}</p>
           <div className={classes["view-profile"]}>View Profile</div>
     </div>
     </>

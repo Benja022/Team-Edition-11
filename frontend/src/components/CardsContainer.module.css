@@ -1,9 +1,11 @@
 .card-container {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 2em 1em;
   margin: 0 auto;
+  background-color: var(--light-green);
 }
 
 /* To aling the cards to the left if number of cards is odd. */

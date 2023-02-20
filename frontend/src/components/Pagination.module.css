@@ -27,20 +27,20 @@
 .number {
   position: relative;
   display: block;
-  color: dimgray;
+  color: var(--green);
   border-radius: 50%;
   transition: all 0.3s ease;
 }
 .number:hover {
-  background: #1967d2;
-  color: #fff;
+  background: var(--light-green);
+  color: var(--white);
 }
 .number-active {
   display: block;
   border-radius: 50%;
   transition: all 0.3s ease;
-  background: #1967d2;
-  color: #fff;
+  background: var(--green);
+  color: var(--white);
 }
 
 .pagination .prev,
@@ -57,7 +57,7 @@
 .pagination .prev:hover,
 .pagination .next:hover {
   background: transparent;
-  color: #1967d2;
+  color: var(--green);
   cursor: pointer;
 }
 
