@@ -11,17 +11,12 @@ export const Pagination = ({
   prevPage,
   currentPage,
   totalPages,
-  setCurrentPage,
-  pageNumber,
-  number,
 }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalCandidates / candidatesPerPage); i++) {
     pageNumbers.push(i);
   }
-
-  console.log(totalPages);
 
   return (
     <div className={classes.pagination}>
