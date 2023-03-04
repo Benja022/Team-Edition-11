@@ -1,0 +1,60 @@
+[
+  {
+    "status": "Succeeded",
+    "data": [
+      {
+        "loginId": "",
+        "photo": "https://superio-next.vercel.app/images/resource/candidate-1.png",
+        "firstName": "Darlene",
+        "lastName": "Robertson",
+        "bootcamp": "Web Development",
+        "registerAt": "2021-01-01T00:00:00.000+00:00"
+      }
+    ],
+    "error": "Unknown Type: null"
+  },
+  {
+    "status": "Succeeded",
+    "data": [
+      {
+        "loginId": "",
+        "photo": "https://superio-next.vercel.app/images/resource/candidate-2.png",
+        "firstName": "Wade",
+        "lastName": "Warreb",
+        "bootcamp": "Web Development",
+        "registerAt": "2021-02-01T00:00:00.000+00:00"
+      }
+    ],
+    "error": "Unknown Type: null"
+  },
+  {
+    "status": "Succeeded",
+    "data": [
+      {
+        "loginId": "",
+        "photo": "https://superio-next.vercel.app/images/resource/candidate-3.png",
+        "firstName": "Leslie",
+        "lastName": "Alexander",
+        "bootcamp": "Web Development",
+        "registerAt": "2021-03-01T00:00:00.000+00:00"
+      }
+    ],
+    "error": "Unknown Type: null"
+  },
+  {
+    "status": "Succeeded",
+    "data": [
+      {
+        "loginId": "",
+        "photo": "https://superio-next.vercel.app/images/resource/candidate-4.png",
+        "firstName": "Floyd",
+        "lastName": "Miles",
+        "bootcamp": "Web Development",
+        "registerAt": "2021-04-01T00:00:00.000+00:00"
+      }
+    ],
+    "error": "Unknown Type: null"
+  }
+
+
+]
