@@ -22,4 +22,6 @@
   border-radius: 50%;
   max-width: 100%;
   height: auto;
+  min-width: 100px;
+  min-height: 100px;
 }

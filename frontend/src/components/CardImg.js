@@ -7,8 +7,8 @@ function CardImg(props) {
       <div className={classes["img-container"]}>
         <div className={classes["img-wrapper"]}>
           <img
-            src={props.candidate.photo.path}
-            alt={props.candidate.photo.text}
+            src={props.candidate.photo}
+            alt={props.candidate.photo}
           />
         </div>
       </div>

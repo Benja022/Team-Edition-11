@@ -11,10 +11,10 @@ function CandidateList() {
   const [candidates, setCandidates] = useState({}); // principal state
   const [loading, setLoading] = useState(false); //loading to be used with spinner
   const [currentPage, setCurrentPage] = useState(1); //pagination
-  const [candidatesPerPage, setCandidatesPerPage] = useState(6); //number of candidates per page
+  const [candidatesPerPage, setCandidatesPerPage] = useState(12); //number of candidates per page
 
   sessionStorage.token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4MTI1NzAyLCJleHAiOjE2NzgxMjY5MDJ9.VYAZJTeUfD-USmRtKST8jX5I5vKWdzW5cSHDcBOfnNs";
 
   //making the fetch request
   useEffect(() => {
@@ -27,7 +27,7 @@ function CandidateList() {
           headers: {
             accept: "application/json",
             Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc3NTE2OTA0LCJleHAiOjE2Nzc1MTgxMDR9.S2I8uB4KPmnTqdMPcuxw37FZTVNUbVBjKSYDj4LkOds",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4MTMxNjA2LCJleHAiOjE2NzgxMzI4MDZ9.Ir59Eq2c2ZJToCuQi1ODS1ib2aEJuyHoP9iVT_OBpdI",
           },
         }
       );
@@ -35,10 +35,17 @@ function CandidateList() {
       setCandidates(data);
       setLoading(false);
     };
-    console.log(candidates.data);
+    //console.log(candidates.data);
     fetchCandidates();
   }, []);
-
+  // sort by date
+  const sortByDate = () => {
+    const sorted = candidates.data.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    setCandidates({ data: sorted });
+  };
+console.log(candidates.data?.sort(sortByDate));
   // useEffect(() => {
   // const fetchCandidates = async () => {
   //   setLoading(true);
@@ -53,12 +60,12 @@ function CandidateList() {
 
   //get current candidates
   const indexOfLastCandidate = currentPage * candidatesPerPage;
-  const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage; 
+  const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
   const currentCandidates = candidates.data?.slice(
     indexOfFirstCandidate,
     indexOfLastCandidate
   );
-  const totalPages = Math.ceil(candidates.length / candidatesPerPage);
+  const totalPages = Math.ceil(candidates.data?.length / candidatesPerPage);
 
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -89,13 +96,13 @@ function CandidateList() {
         })}
       </CardsContainer>
       <Pagination
-      candidatesPerPage={candidatesPerPage}
-      totalCandidates={candidates.length}
-      paginate={paginate}
-      nextPage={nextPage}
-      prevPage={prevPage}
-      currentPage={currentPage}
-      totalPages={totalPages}
+        candidatesPerPage={candidatesPerPage}
+        totalCandidates={candidates.data?.length}
+        paginate={paginate}
+        nextPage={nextPage}
+        prevPage={prevPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
       />
     </>
   );
