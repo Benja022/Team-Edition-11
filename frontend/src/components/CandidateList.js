@@ -1,71 +1,65 @@
 import CardWrapper from "./CardWrapper";
 import CardImg from "./CardImg";
 import CardInfo from "./CardInfo";
-import { freelancers } from "../db/freelancers";
+//import { freelancers } from "../db/freelancers";
 import CardsContainer from "./CardsContainer";
 import { Switcher } from "./Switcher";
 import { Pagination } from "./Pagination";
 import { useState, useEffect } from "react";
 
 function CandidateList() {
-  const [candidates, setCandidates] = useState({}); // principal state
-  const [loading, setLoading] = useState(false); //loading to be used with spinner
+  const [candidates, setCandidates] = useState([]); // principal state
+  // const [loading, setLoading] = useState(false); //loading to be used with spinner
   const [currentPage, setCurrentPage] = useState(1); //pagination
-  const [candidatesPerPage, setCandidatesPerPage] = useState(12); //number of candidates per page
+  const [candidatesPerPage /*setCandidatesPerPage*/] = useState(12); //number of candidates per page
 
-  sessionStorage.token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4MTI1NzAyLCJleHAiOjE2NzgxMjY5MDJ9.VYAZJTeUfD-USmRtKST8jX5I5vKWdzW5cSHDcBOfnNs";
+  // sessionStorage.token =
+  //   "https://codejob.nel386.repl.co/candidate/all-candidates";
 
   //making the fetch request
   useEffect(() => {
     const fetchCandidates = async () => {
-      setLoading(true);
+      // setLoading(true);
       const res = await fetch(
         "https://codejob.nel386.repl.co/candidate/all-candidates",
         {
           method: "GET",
           headers: {
-            accept: "application/json",
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4MTMxNjA2LCJleHAiOjE2NzgxMzI4MDZ9.Ir59Eq2c2ZJToCuQi1ODS1ib2aEJuyHoP9iVT_OBpdI",
+            "Content-Type": "application/json",
+            "auth-token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4MjI0MDAyLCJleHAiOjE2NzgyMjUyMDJ9.lEulZTgpDI6gDRxLSDfzno0rPyrPH717rqRDxxsFa_4",
           },
         }
       );
-      const data = await res.json();
-      setCandidates(data);
-      setLoading(false);
+      const info = await res.json();
+      setCandidates(info.data);
+      // setLoading(false);
     };
-    //console.log(candidates.data);
     fetchCandidates();
   }, []);
-  // sort by date
-  const sortByDate = () => {
-    const sorted = candidates.data.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    });
-    setCandidates({ data: sorted });
-  };
-console.log(candidates.data?.sort(sortByDate));
-  // useEffect(() => {
-  // const fetchCandidates = async () => {
-  //   setLoading(true);
-  //const candidates = freelancers; //mientras no se conecta a la base de datos
-  // const res = await fetch("/candidate/all-candidates");//future fetch request
-  //     setCandidates(freelancers);
-  //     setLoading(false);
-  // console.log(res);
-  //   };
-  //   fetchCandidates();
-  // }, []);
+
+  //console.log(candidates);
+
+  //order candidates by date descendant FUNCIONA
+  // candidates.data?.sort((a, b) => {
+  //     return new Date(b.registerAt) - new Date(a.registerAt);
+  //   });
+
+  // const orderDesc = () => {
+  //   candidates.sort((a, b) => {
+  //     setCandidates(new Date(b.registerAt) - new Date(a.registerAt));
+  //   });
+  // };
 
   //get current candidates
   const indexOfLastCandidate = currentPage * candidatesPerPage;
   const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
-  const currentCandidates = candidates.data?.slice(
+  const currentCandidates = candidates.slice(
     indexOfFirstCandidate,
     indexOfLastCandidate
   );
-  const totalPages = Math.ceil(candidates.data?.length / candidatesPerPage);
+  const totalPages = Math.ceil(candidates.length / candidatesPerPage);
+  //console.log(currentCandidates);
 
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -85,10 +79,13 @@ console.log(candidates.data?.sort(sortByDate));
   return (
     <>
       <CardsContainer>
-        <Switcher />
-        {currentCandidates?.map((candidate, index) => {
+        <Switcher /*orderDesc={orderDesc} */ />
+        {currentCandidates.map((candidate) => {
           return (
-            <CardWrapper key={index} candidates={candidate} loading={loading}>
+            <CardWrapper
+              key={candidate._id}
+              candidates={candidate} /*loading={loading}*/
+            >
               <CardImg candidate={candidate} />
               <CardInfo candidate={candidate} />
             </CardWrapper>
@@ -97,7 +94,7 @@ console.log(candidates.data?.sort(sortByDate));
       </CardsContainer>
       <Pagination
         candidatesPerPage={candidatesPerPage}
-        totalCandidates={candidates.data?.length}
+        totalCandidates={candidates.length}
         paginate={paginate}
         nextPage={nextPage}
         prevPage={prevPage}

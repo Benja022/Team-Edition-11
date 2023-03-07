@@ -1,11 +1,11 @@
 import classes from "./CardsContainer.module.css";
-import Spinner from "./UI/Spinners/DualRing";
+// import Spinner from "./UI/Spinners/DualRing";
 
 function CardsContainer(props) {
 
-  if (props.loading) {
-    return <Spinner />;
-  }
+  // if (props.loading) {
+  //   return <Spinner />;
+  // }
 
 
 

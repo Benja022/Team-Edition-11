@@ -1,4 +1,5 @@
 import classes from "./CardInfo.module.css";
+import { Link } from "react-router-dom";
 
 function CardInfo(props) {
 
@@ -7,10 +8,11 @@ function CardInfo(props) {
     <>
     <div className={classes["info-container"]}>
         <h3 className={classes["info-name"]} >
-          {props.candidate.fullName} {props.candidate.lastName}
+          {props.candidate.fullName}
         </h3>
         <p className={classes["info-role"]}>{props.candidate.bootcamp}</p>
-          <div className={classes["view-profile"]}>View Profile</div>
+          <div className={classes["view-profile"]}>{/* <Link to={`"/candidate/${loginId}"`} >View Profile</Link> */}</div>
+          
     </div>
     </>
   );

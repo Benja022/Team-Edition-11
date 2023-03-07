@@ -8,7 +8,9 @@ export const Switcher = () => {
       <div className={classes["sort-by"]}>
         <select className={classes["form-select"]}>
           <option value="">Sort by (default)</option>
-          <option value="asc">Newest</option>
+          <option /*onClick={() => orderDesc()}*/ on value="asc">
+            Newest
+          </option>
           <option value="des">Oldest</option>
         </select>
       </div>
