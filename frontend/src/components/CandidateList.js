@@ -1,13 +1,13 @@
 import CardWrapper from "./CardWrapper";
 import CardImg from "./CardImg";
 import CardInfo from "./CardInfo";
-//import { freelancers } from "../db/freelancers";
 import CardsContainer from "./CardsContainer";
-import { Switcher } from "./Switcher";
 import { Pagination } from "./Pagination";
 import { useState, useEffect } from "react";
+import classes from "./CandidateList.module.css";
 
 function CandidateList() {
+  const [order, setOrder] = useState("default");
   const [candidates, setCandidates] = useState([]); // principal state
   // const [loading, setLoading] = useState(false); //loading to be used with spinner
   const [currentPage, setCurrentPage] = useState(1); //pagination
@@ -18,6 +18,7 @@ function CandidateList() {
 
   //making the fetch request
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchCandidates = async () => {
       // setLoading(true);
       const res = await fetch(
@@ -27,29 +28,28 @@ function CandidateList() {
           headers: {
             "Content-Type": "application/json",
             "auth-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4MjI0MDAyLCJleHAiOjE2NzgyMjUyMDJ9.lEulZTgpDI6gDRxLSDfzno0rPyrPH717rqRDxxsFa_4",
+              /*sessionStorage.token*/
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4MzAyMzU5LCJleHAiOjE2NzgzMDM1NTl9.LChvT8takvlYYmpLPbVlIsEL8CoPNugD3KqvbxoTWnA",
           },
         }
       );
       const info = await res.json();
+      if (order === "desc") {
+        info.data.sort((a, b) => {
+          return new Date(b.registerAt) - new Date(a.registerAt);
+        });
+      } else if (order === "asc") {
+        info.data.sort((a, b) => {
+          return new Date(a.registerAt) - new Date(b.registerAt);
+        });
+      }
       setCandidates(info.data);
       // setLoading(false);
     };
     fetchCandidates();
-  }, []);
+  }, [currentPage, order]);
 
-  //console.log(candidates);
-
-  //order candidates by date descendant FUNCIONA
-  // candidates.data?.sort((a, b) => {
-  //     return new Date(b.registerAt) - new Date(a.registerAt);
-  //   });
-
-  // const orderDesc = () => {
-  //   candidates.sort((a, b) => {
-  //     setCandidates(new Date(b.registerAt) - new Date(a.registerAt));
-  //   });
-  // };
+  // console.log(candidates);
 
   //get current candidates
   const indexOfLastCandidate = currentPage * candidatesPerPage;
@@ -79,8 +79,33 @@ function CandidateList() {
   return (
     <>
       <CardsContainer>
-        <Switcher /*orderDesc={orderDesc} */ />
-        {currentCandidates.map((candidate) => {
+        <div className={classes["top-filters"]}>
+          <div className={classes.switcher}>
+            <div className={classes["showing-result"]}></div>
+            <div className={classes["sort-by"]}>
+            <button className={classes["btn-clear"]}>Clear All</button>
+              <select
+                onChange={(e) => {
+                  if (e.target.value === "desc") {
+                    setOrder("desc");
+                  } else if (e.target.value === "asc") {
+                    setOrder("asc");
+                  } else if (e.target.value === "default") {
+                    setOrder("default");
+                  } else {
+                  }
+                  setCurrentPage(1);
+                }}
+                className={classes["form-select"]}
+              >
+                <option value="default">Sort by (default)</option>
+                <option value="desc">Newest</option>
+                <option value="asc">Oldest</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        {currentCandidates?.map((candidate) => {
           return (
             <CardWrapper
               key={candidate._id}

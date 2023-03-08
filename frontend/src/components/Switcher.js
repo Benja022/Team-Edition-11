@@ -1,19 +1,31 @@
 import classes from "./Switcher.module.css";
 import React from "react";
 
-export const Switcher = () => {
+function Switcher(setOrder, setCurrentPage) {
   return (
     <div className={classes.switcher}>
       <div className={classes["showing-result"]}></div>
       <div className={classes["sort-by"]}>
-        <select className={classes["form-select"]}>
-          <option value="">Sort by (default)</option>
-          <option /*onClick={() => orderDesc()}*/ on value="asc">
-            Newest
-          </option>
-          <option value="des">Oldest</option>
+        <select
+          onChange={(e) => {
+            if (e.target.value === "desc") {
+              setOrder("desc");
+            } else if (e.target.value === "asc") {
+              setOrder("asc");
+            } else if (e.target.value === "default") {
+              setOrder("default");
+            } else {
+            }
+            setCurrentPage(1);
+          }}
+          className={classes["form-select"]}
+        >
+          <option value="default">Sort by (default)</option>
+          <option value="desc">Newest</option>
+          <option value="asc">Oldest</option>
         </select>
       </div>
     </div>
   );
-};
+}
+export default Switcher;

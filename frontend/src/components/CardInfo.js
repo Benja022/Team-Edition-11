@@ -1,5 +1,5 @@
 import classes from "./CardInfo.module.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 function CardInfo(props) {
 
