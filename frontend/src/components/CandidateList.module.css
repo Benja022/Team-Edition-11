@@ -31,6 +31,10 @@
   transition: all 0.2s ease-in-out;
   margin-bottom: 10px;}
 
+  .btn-clear-disabled{
+    display: none;
+  }
+
 .top-filters {
   flex-direction: row;
   width: 100%;

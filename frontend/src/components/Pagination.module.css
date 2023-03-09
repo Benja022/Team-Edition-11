@@ -32,7 +32,7 @@
   transition: all 0.3s ease;
 }
 .number:hover {
-  background: var(--light-green);
+  background: var(--dark-green);
   color: var(--white);
 }
 .number-active {
