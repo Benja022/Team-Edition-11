@@ -1,5 +1,5 @@
 import classes from "./CardInfo.module.css";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CardInfo(props) {
 //console.log(props.candidate);
@@ -11,7 +11,7 @@ function CardInfo(props) {
           {props.candidate.fullName}
         </h3>
         <p className={classes["info-role"]}>{props.candidate.bootcamp}</p>
-          {/* <div className={classes["view-profile"]}><Link to={`"/candidate/${loginId}"`} >View Profile</Link></div> */}
+          <div className={classes["view-profile"]}><Link to={`/candidate/${props.candidate._id}`} >View Profile</Link></div>
           
     </div>
     </>

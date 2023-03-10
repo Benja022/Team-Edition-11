@@ -1,7 +1,7 @@
 import classes from "./Switcher.module.css";
 import React from "react";
 
-function Switcher({ handlerSelect, setSelectedOrder, selectedOrder }) {
+function Switcher({ handlerSelect, selectedOrder }) {
   return (
     <select
     value={selectedOrder}
