@@ -3,7 +3,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-export const Pagination = ({
+function Pagination  ({
   candidatesPerPage,
   totalCandidates,
   paginate,
@@ -11,7 +11,7 @@ export const Pagination = ({
   prevPage,
   currentPage,
   totalPages,
-}) => {
+}) {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalCandidates / candidatesPerPage); i++) {
@@ -51,3 +51,4 @@ export const Pagination = ({
     </div>
   );
 };
+export default Pagination;

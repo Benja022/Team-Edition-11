@@ -1,10 +1,17 @@
-import './App.css';
-import CandidateList from './components/CandidateList';
+import "./App.css";
+import CandidateList from "./views/CandidateList";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
-    <CandidateList/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<CandidateList />} />
+          <Route path="/candidate/all-candidates" element={<CandidateList />} />
+          <Route path="/candidate/:loginId" element={<CandidateList />} />
+        </Routes>
+      </Router>
     </>
   );
 }

@@ -1,0 +1,17 @@
+.btn-clear {
+    width: 100%;
+    background-color: #dc3545;
+    border: 1px solid #ced4da;
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+    padding: 10px 44px 10px 22px;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 10px;}
+  
+    .btn-clear-disabled{
+      display: none;
+    }
+  

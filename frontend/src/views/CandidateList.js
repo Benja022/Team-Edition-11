@@ -1,22 +1,27 @@
-import CardWrapper from "./CardWrapper";
-import CardImg from "./CardImg";
-import CardInfo from "./CardInfo";
-import CardsContainer from "./CardsContainer";
-import { Pagination } from "./Pagination";
-import { useState, useEffect } from "react";
+// Description: This component is the main component of the candidates list page. It contains the main logic of the page and the components that are used in the page.
+
+//components used: CardWrapper, CardImg, CardInfo, Pagination, Switcher
+import CardWrapper from "../components/candidatesList/CardWrapper";
+import CardImg from "../components/candidatesList/CardImg";
+import CardInfo from "../components/candidatesList/CardInfo";
+import CardsContainer from "../components/candidatesList/CardsContainer";
+import Pagination from "../components/candidatesList/Pagination";
+import Switcher from "../components/candidatesList/Switcher";
+import ButtonClear from "../components/candidatesList/ButtonClear";
+
+//import classes from "./CandidateList.module.css";
 import classes from "./CandidateList.module.css";
-//import Switcher from "./Switcher";
+
+//hooks
+import { useState, useEffect } from "react";
 
 function CandidateList() {
-  const [selectedOrder, setSelectedOrder] = useState(); //to keep the selected option in the select
+  const [selectedOrder, setSelectedOrder] = useState("default"); //to keep the selected option in the select
   const [order, setOrder] = useState("default");
   const [candidates, setCandidates] = useState([]); // principal state
   // const [loading, setLoading] = useState(false); //loading to be used with spinner
   const [currentPage, setCurrentPage] = useState(1); //pagination
   const [candidatesPerPage /*setCandidatesPerPage*/] = useState(12); //number of candidates per page
-
-  // sessionStorage.token =
-  //   "https://codejob.nel386.repl.co/candidate/all-candidates";
 
   //making the fetch request
   useEffect(() => {
@@ -31,7 +36,7 @@ function CandidateList() {
             "Content-Type": "application/json",
             "auth-token":
               /*sessionStorage.token*/
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4Mzg3NTc4LCJleHAiOjE2NzgzODg3Nzh9.Yrlc0wqH0CLCgyii_NI5Ri9NG_lXf8YevVLG4F9nrqg",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4NDUxMDMxLCJleHAiOjE2Nzg0NTIyMzF9.DU2-7qKMeEE_8rNZlGLccmwBGeJjmcjp4Un-ZrXzce8",
           },
         }
       );
@@ -77,19 +82,26 @@ function CandidateList() {
       setCurrentPage(currentPage - 1);
     }
   };
+
+  //handle button clear
+  const handlerClear = (e) => {
+    setCurrentPage(1); //to send the user back to the first page
+    setSelectedOrder("default");
+    setOrder("default");
+  };
+
   //handle select
-  // const handlerSelect = (e, setSelectedOrder ) => {
-  //   if (e.target.value === "desc") {
-  //     setOrder("desc");
-  //   } else if (e.target.value === "asc") {
-  //     setOrder("asc");
-  //   } else if (e.target.value === "default") {
-  //     setOrder("default");
-  //   } else {
-  //   }
-  //   setCurrentPage(1); //to send the user back to the first page
-  //   setSelectedOrder(); // to reset the selected option in the select
-  // };
+  const handlerSelect = (e) => {
+    if (e.target.value === "desc") {
+      setOrder("desc");
+    } else if (e.target.value === "asc") {
+      setOrder("asc");
+    } else {
+      setOrder("default");
+    }
+    setCurrentPage(1); //to send the user back to the first page
+    setSelectedOrder(); // to reset the selected option in the select
+  };
 
   return (
     <>
@@ -98,48 +110,30 @@ function CandidateList() {
           <div className={classes.switcher}>
             <div className={classes["showing-result"]}></div>
             <div className={classes["sort-by"]}>
-              <button
+              {/* <button
                 className={
                   order === "desc" || order === "asc"
                     ? classes["btn-clear"]
                     : classes["btn-clear-disabled"]
                 }
                 onClick={(e) => {
-                  setOrder("default");
                   setCurrentPage(1); //to send the user back to the first page
-                  setSelectedOrder(e.target.value);
-                  //setSelectedOrder(e.target.value); //to get default value in the select
+                  setSelectedOrder("default");
+                  setOrder("default");
                 }}
               >
                 Clear All
-              </button>
-              {/* <Switcher
-              value={selectedOrder}
-              handlerSelect={handlerSelect}
-              selectedOrder={selectedOrder}
-              /> */}
-              <select
+              </button> */}
+              <ButtonClear
+
+                handlerClear={handlerClear}
+                order={order}
+              />
+              <Switcher
                 value={selectedOrder}
-                onChange={(e) => {
-                  if (e.target.value === "desc") {
-                    setOrder("desc");
-                  } else if (e.target.value === "asc") {
-                    setOrder("asc");
-                  } else if (e.target.value === "default") {
-                    setOrder("default");
-                  } else {
-                  }
-                  setCurrentPage(1); //to send the user back to the first page
-                  setSelectedOrder(); // to reset the selected option in the select
-                }}
-                className={classes["form-select"]}
-              >
-                <option selected value="default">
-                  Sort by (default)
-                </option>
-                <option value="desc">Newest</option>
-                <option value="asc">Oldest</option>
-              </select>
+                handlerSelect={handlerSelect}
+                selectedOrder={selectedOrder}
+              />
             </div>
           </div>
         </div>
