@@ -9,7 +9,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CandidateList />} />
           <Route path="/candidate/all-candidates" element={<CandidateList />} />
-          <Route path="/candidate/:loginId" element={"Hola"} />
+          {/* <Route path="/candidate/:loginId" element={"<DetailCandidate/>"} /> to be implemented */}
         </Routes>
       </Router>
     </>

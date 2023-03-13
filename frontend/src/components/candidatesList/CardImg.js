@@ -1,19 +1,20 @@
 import classes from "./CardImg.module.css";
 
 function CardImg(props) {
+  //typeof props.candidate.isLookingForJob
   return (
     <>
-      <div className={classes.featured}>Featured</div>
+      {props.candidate.isLookingForJob ? (
+        <div className={classes["featured-openToWork"]}>Open to work</div>
+      ) : (
+        <div className={classes["featured-working"]}>Working</div>
+      )}
       <div className={classes["img-container"]}>
         <div className={classes["img-wrapper"]}>
-          <img
-            src={props.candidate.photo}
-            alt={props.candidate.photo}
-          />
+          <img src={props.candidate.photo} alt={props.candidate.photo} />
         </div>
       </div>
     </>
   );
 }
-
 export default CardImg;

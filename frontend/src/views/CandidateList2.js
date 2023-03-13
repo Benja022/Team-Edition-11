@@ -7,7 +7,7 @@ import CardInfo from "../components/candidatesList/CardInfo";
 import CardsContainer from "../components/candidatesList/CardsContainer";
 import Pagination from "../components/candidatesList/Pagination";
 import Switcher from "../components/candidatesList/Switcher";
-//import Spinner from //DESCOMENTAR CUANDO SE HAGA EL SPINNER, TAMBIÉN LINEAS....
+//import ButtonClear from "../components/candidatesList/ButtonClear";
 
 //import classes from "./CandidateList.module.css";
 import classes from "./CandidateList.module.css";
@@ -15,42 +15,52 @@ import classes from "./CandidateList.module.css";
 //hooks
 import { useState, useEffect } from "react";
 
-//utils and services
-import { paginationUtils } from "../utils/pagination.utils";
-import { orderByDate } from "../utils/orderByDate.utils";
-import { fetchCandidates } from "../services/fetchCandidates.service";
-
 function CandidateList() {
   const [selectedOrder, setSelectedOrder] = useState("default"); //to keep the selected option in the select
   const [order, setOrder] = useState("default"); //to keep the order of the candidates
   const [candidates, setCandidates] = useState([]); // principal state
+  const [candidatesCopy, setCandidatesCopy] = useState([]); //copy of the principal state
+  // const [loading, setLoading] = useState(false); //loading to be used with spinner
   const [currentPage, setCurrentPage] = useState(1); //pagination
   const [candidatesPerPage /*setCandidatesPerPage*/] = useState(12); //number of candidates per page
-  // const [loading, setLoading] = useState(false); //loading to be used with spinner
 
-  //useEffect to fetch the candidates and sort them
+  //making the fetch request
   useEffect(() => {
     window.scrollTo(0, 0); //to send the user back to the top of the page
-    candidatesList();
+    const fetchCandidates = async () => {
+      // setLoading(true);
+      const res = await fetch(
+        "https://codejob.nel386.repl.co/candidate/all-candidates",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token":
+              /*sessionStorage.token*/
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJpZCI6IjYzZjQ3NjY4MGEwMmU0NTJlMThjMzJiNCIsImVtYWlsIjoiZW1wbG95ZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZW1wbG95ZXIifSwiaWF0IjoxNjc4NjEzODU0LCJleHAiOjE2Nzg2MTUwNTR9.qi7Nl34rDS_2S8xtRSCmEpboOcNfbGivoTjfdj6YMm8",
+          },
+        }
+      );
+      const info = await res.json();
+     setCandidatesCopy(info.data);
+    let infoData =info.data; 
+      orderCandites(infoData);
+      setCandidates(infoData);
+
+    };
+    fetchCandidates();
+    //console.log("fetching candidates");
+    //calling the function to order the candidates by default
   }, [currentPage, order]);
 
-  //sorting the candidates by register date
-  const candidatesList = async () => {
-    //setLoading(true);
-    const { info } = await fetchCandidates();
-    const sortedCandidates = orderByDate(info, order);
-    setCandidates(sortedCandidates);
-    //console.log(candidates);
-
-    //setLoading(false);
-  };
-
-  //pagination
-  const { currentCandidates, totalPages } = paginationUtils(
-    currentPage,
-    candidatesPerPage,
-    candidates
+  //get current candidates
+  const indexOfLastCandidate = currentPage * candidatesPerPage;
+  const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
+  const currentCandidates = candidates.slice(
+    indexOfFirstCandidate,
+    indexOfLastCandidate
   );
+  const totalPages = Math.ceil(candidates.length / candidatesPerPage);
 
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -66,8 +76,7 @@ function CandidateList() {
       setCurrentPage(currentPage - 1);
     }
   };
-
-  //handler select
+  //handle select
   const handlerSelect = (e) => {
     if (e.target.value === "desc") {
       setOrder("desc");
@@ -75,11 +84,32 @@ function CandidateList() {
     } else if (e.target.value === "asc") {
       setOrder("asc");
       setSelectedOrder("asc");
-    } else {
+    } else if (e.target.value === "default"){
       setOrder("default");
       setSelectedOrder("default");
     }
+    orderCandites();
     setCurrentPage(1); //to send the user back to the first page
+    //setSelectedOrder(); // to reset the selected option in the select
+  };
+console.log(candidatesCopy);
+//funtion to order the candidates
+const orderCandites = (infoData) => {
+  if (selectedOrder === "desc") {
+    candidatesCopy.sort((a, b) => {
+      return new Date(b.registerAt) - new Date(a.registerAt);
+    });
+    setCandidates(candidatesCopy);
+  } else if (selectedOrder === "asc") {
+    candidatesCopy.sort((a, b) => {
+      return new Date(a.registerAt) - new Date(b.registerAt);
+    });
+    setCandidates(candidatesCopy);
+  }
+  // else if (selectedOrder === "default") {
+  //   setCandidates(infoData);
+  //   console.log(candidates);
+  //   }
   };
 
   return (

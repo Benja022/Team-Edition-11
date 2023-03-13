@@ -1,9 +1,10 @@
 import classes from "./Switcher.module.css";
 import React from "react";
 
-function Switcher({ handlerSelect, selectedOrder }) {
+function Switcher({ handlerSelect, selectedOrder,order }) {
   return (
     <select
+    
     value={selectedOrder}
     onChange={(e) => {
       handlerSelect(e);

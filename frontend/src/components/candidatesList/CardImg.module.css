@@ -1,4 +1,4 @@
-.featured {
+.featured-openToWork {
   position: relative;
   font-size: 13px;
   line-height: 15px;
@@ -9,6 +9,19 @@
   width: fit-content;
   background: rgba(52, 168, 83, 0.15);
   color: #34a853;
+}
+
+.featured-working {
+  position: relative;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 5px 20px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: fit-content;
+  background: var(--invalid);
+  color: whitesmoke;
 }
 
 .img-container .img-wrapper {

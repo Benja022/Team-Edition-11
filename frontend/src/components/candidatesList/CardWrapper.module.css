@@ -2,7 +2,7 @@
   border: 1px solid #e5e5e5;
   width: 100%;
   background-color: white;
-  border-radius: 0.3em;
+  border-radius: 0.375em;
   padding: 1.2em 0.8em 1.3em;
   margin-bottom: 2em;
   transition: all 0.5s;
@@ -10,7 +10,8 @@
 }
 
 .outer-card:hover {
-  box-shadow: 0 0 0.5em 0.1em #e5e5e5;
+  /* box-shadow: 0 0 0.5em 0.1em #e5e5e5; */
+  box-shadow: 0 0 0.5em 0.1em var(--green);
 }
 
 @media screen and (min-width: 768px) {
