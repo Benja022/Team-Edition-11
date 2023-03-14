@@ -1,19 +1,23 @@
-.pagination {
-  background-color: var(--light-green);
-  padding-bottom: 15px;
-}
-.pagination ul {
-  position: relative;
+.pagination-container {
+  display: flex;
+  list-style-type: none;
+  width: 100%;
   display: flex;
   justify-content: center;
+  background-color: var(--light-green);
   align-items: center;
-  list-style: none;
+  padding: 0 10px 15px;
 }
+
+.dots {
+  color: var(--dark-green);
+}
+
 .number-container {
-  margin: 0 5px;
+  margin: 0 2px;
   font-size: 15px;
-  line-height: 45px;
-  min-width: 45px;
+  line-height: 40px;
+  min-width: 40px;
   text-align: center;
 }
 .number {
@@ -23,10 +27,12 @@
   border-radius: 50%;
   transition: all 0.3s ease;
 }
+
 .number:hover {
   background: var(--dark-green);
   color: var(--white);
 }
+
 .number-active {
   display: block;
   border-radius: 50%;
@@ -34,15 +40,32 @@
   background: var(--green);
   color: var(--white);
 }
-
-.pagination .prev:hover,
-.pagination .next:hover {
-  background: transparent;
+.prev,
+.next {
+  font-size: 15px;
+  line-height: 40px;
   color: var(--green);
   cursor: pointer;
 }
 
-.pagination .prev-hidden,
-.pagination .next-hidden {
+.prev:hover,
+.next:hover {
+  background: var(--dark-green);
+  color: var(--white);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.prev-hidden,
+.next-hidden {
   visibility: hidden;
+}
+
+@media (min-width: 1024px) {
+
+  
 }

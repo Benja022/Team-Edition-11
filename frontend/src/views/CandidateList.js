@@ -13,19 +13,20 @@ import DualRing from "../components/candidatesList/Spinners/DualRing";
 import classes from "./CandidateList.module.css";
 
 //hooks
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 //utils and services
-import { paginationUtils } from "../utils/pagination.utils";
+//import { paginationUtils } from "../utils/pagination.utils";
 import { orderByDate } from "../utils/orderByDate.utils";
 import { fetchCandidates } from "../services/fetchCandidates.service";
+
+let PageSize = 12;//to fix the number of candidates per page
 
 function CandidateList() {
   const [selectedOrder, setSelectedOrder] = useState("default"); //to keep the selected option in the select
   const [order, setOrder] = useState("default"); //to keep the order of the candidates
   const [candidates, setCandidates] = useState([]); // principal state
   const [currentPage, setCurrentPage] = useState(1); //pagination
-  const [candidatesPerPage /*setCandidatesPerPage*/] = useState(12); //number of candidates per page
   const [loading, setLoading] = useState(false); //loading to be used with spinner
 
   //useEffect to fetch the candidates and sort them
@@ -33,7 +34,7 @@ function CandidateList() {
     window.scrollTo(0, 0); //to send the user back to the top of the page
     setLoading(true);
     candidatesList();
-  }, [currentPage, order]);
+  }, [order]);
 
   //sorting the candidates by register date
   const candidatesList = async () => {
@@ -45,26 +46,11 @@ function CandidateList() {
   };
 
   //pagination
-  const { currentCandidates, totalPages } = paginationUtils(
-    currentPage,
-    candidatesPerPage,
-    candidates
-  );
-
-  //change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  //change page from arrow buttons
-  const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  const currentCards = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return candidates.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, candidates]);
 
   //handler select
   const handlerSelect = (e) => {
@@ -115,12 +101,9 @@ function CandidateList() {
                 </div>
               </div>
             </div>
-            {currentCandidates.map((candidate, key) => {
+            {currentCards.map((candidate, key) => {
               return (
-                <CardWrapper
-                  key={key}
-                  candidates={candidate}
-                >
+                <CardWrapper key={key} candidates={candidate}>
                   <CardImg candidate={candidate} />
                   <CardInfo candidate={candidate} />
                 </CardWrapper>
@@ -128,13 +111,10 @@ function CandidateList() {
             })}
           </CardsContainer>
           <Pagination
-            candidatesPerPage={candidatesPerPage}
-            totalCandidates={candidates.length}
-            paginate={paginate}
-            nextPage={nextPage}
-            prevPage={prevPage}
             currentPage={currentPage}
-            totalPages={totalPages}
+            totalCount={candidates.length}
+            pageSize={PageSize}
+            onPageChange={(page) => setCurrentPage(page)}
           />
         </>
       )}
