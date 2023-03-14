@@ -5,7 +5,6 @@
   justify-content: center;
   padding: 50px 30px 0;
   background-color: var(--light-green);
-  flex-direction: row;
 }
 
 /* To aling the cards to the left if number of cards is odd. */
@@ -13,12 +12,12 @@
   content: "";
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 390x) {
 }
 @media screen and (min-width: 820px) {
 }
 @media screen and (min-width: 1024px) {
   .card-container {
-    padding: 50px 12em 0;
+    padding: 50px 5em 0;
   }
 } ;

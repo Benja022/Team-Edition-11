@@ -7,7 +7,7 @@ import CardInfo from "../components/candidatesList/CardInfo";
 import CardsContainer from "../components/candidatesList/CardsContainer";
 import Pagination from "../components/candidatesList/Pagination";
 import Switcher from "../components/candidatesList/Switcher";
-//import Spinner from //DESCOMENTAR CUANDO SE HAGA EL SPINNER, TAMBIÉN LINEAS....
+import DualRing from "../components/candidatesList/Spinners/DualRing";
 
 //import classes from "./CandidateList.module.css";
 import classes from "./CandidateList.module.css";
@@ -26,11 +26,12 @@ function CandidateList() {
   const [candidates, setCandidates] = useState([]); // principal state
   const [currentPage, setCurrentPage] = useState(1); //pagination
   const [candidatesPerPage /*setCandidatesPerPage*/] = useState(12); //number of candidates per page
-  // const [loading, setLoading] = useState(false); //loading to be used with spinner
+  const [loading, setLoading] = useState(false); //loading to be used with spinner
 
   //useEffect to fetch the candidates and sort them
   useEffect(() => {
     window.scrollTo(0, 0); //to send the user back to the top of the page
+    setLoading(true);
     candidatesList();
   }, [currentPage, order]);
 
@@ -40,9 +41,7 @@ function CandidateList() {
     const { info } = await fetchCandidates();
     const sortedCandidates = orderByDate(info, order);
     setCandidates(sortedCandidates);
-    //console.log(candidates);
-
-    //setLoading(false);
+    setLoading(false);
   };
 
   //pagination
@@ -84,52 +83,61 @@ function CandidateList() {
 
   return (
     <>
-      <CardsContainer>
-        <div className={classes["top-filters"]}>
-          <div className={classes.switcher}>
-            <div className={classes["showing-result"]}></div>
-            <div className={classes["sort-by"]}>
-              <button
-                className={
-                  order === "desc" || order === "asc"
-                    ? classes["btn-clear"]
-                    : classes["btn-clear-disabled"]
-                }
-                onClick={(e) => {
-                  setCurrentPage(1); //to send the user back to the first page
-                  setSelectedOrder("default");
-                  setOrder("default");
-                }}
-              >
-                Clear All
-              </button>
-              <Switcher
-                value={selectedOrder}
-                handlerSelect={handlerSelect}
-                selectedOrder={selectedOrder}
-                order={order}
-              />
+      {loading ? (
+        <DualRing />
+      ) : (
+        <>
+          <CardsContainer>
+            <div className={classes["top-filters"]}>
+              <div className={classes.switcher}>
+                <div className={classes["showing-result"]}></div>
+                <div className={classes["sort-by"]}>
+                  <button
+                    className={
+                      order === "desc" || order === "asc"
+                        ? classes["btn-clear"]
+                        : classes["btn-clear-disabled"]
+                    }
+                    onClick={(e) => {
+                      setCurrentPage(1); //to send the user back to the first page
+                      setSelectedOrder("default");
+                      setOrder("default");
+                    }}
+                  >
+                    Clear All
+                  </button>
+                  <Switcher
+                    value={selectedOrder}
+                    handlerSelect={handlerSelect}
+                    selectedOrder={selectedOrder}
+                    order={order}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        {currentCandidates.map((candidate, key) => {
-          return (
-            <CardWrapper key={key} candidates={candidate} /*loading={loading}*/>
-              <CardImg candidate={candidate} />
-              <CardInfo candidate={candidate} />
-            </CardWrapper>
-          );
-        })}
-      </CardsContainer>
-      <Pagination
-        candidatesPerPage={candidatesPerPage}
-        totalCandidates={candidates.length}
-        paginate={paginate}
-        nextPage={nextPage}
-        prevPage={prevPage}
-        currentPage={currentPage}
-        totalPages={totalPages}
-      />
+            {currentCandidates.map((candidate, key) => {
+              return (
+                <CardWrapper
+                  key={key}
+                  candidates={candidate}
+                >
+                  <CardImg candidate={candidate} />
+                  <CardInfo candidate={candidate} />
+                </CardWrapper>
+              );
+            })}
+          </CardsContainer>
+          <Pagination
+            candidatesPerPage={candidatesPerPage}
+            totalCandidates={candidates.length}
+            paginate={paginate}
+            nextPage={nextPage}
+            prevPage={prevPage}
+            currentPage={currentPage}
+            totalPages={totalPages}
+          />
+        </>
+      )}
     </>
   );
 }

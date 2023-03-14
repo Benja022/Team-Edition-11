@@ -1,5 +1,4 @@
 .pagination {
-  display: block;
   background-color: var(--light-green);
   padding-bottom: 15px;
 }
@@ -11,21 +10,14 @@
   list-style: none;
 }
 .number-container {
-  position: relative;
   margin: 0 5px;
-  font-size: 14px;
-  color: dimgray;
+  font-size: 15px;
   line-height: 45px;
   min-width: 45px;
-  font-weight: 400;
   text-align: center;
 }
 .number {
-  text-decoration: none;
   cursor: pointer;
-}
-.number {
-  position: relative;
   display: block;
   color: var(--green);
   border-radius: 50%;
@@ -41,17 +33,6 @@
   transition: all 0.3s ease;
   background: var(--green);
   color: var(--white);
-}
-
-.pagination .prev,
-.pagination .next {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  margin: 0;
-  transition: all 0.3s ease;
 }
 
 .pagination .prev:hover,

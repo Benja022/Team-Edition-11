@@ -19,7 +19,6 @@
 }
 
 .form-select {
-  position: relative;
   width: 100%;
   font-size: 14px;
   line-height: 25px;
@@ -36,42 +35,19 @@
   cursor: pointer;
 }
 
-
-/* Small devices (landscape phones, 576px and up)   */
-@media (min-width: 576px) {
+/* Small devices (landscape phones, 390px and up)   */
+@media (min-width: 390px) {
   /* here your code   */
 }
 
-/* Medium devices (tablets, 768px and up)   */
-@media (min-width: 768px) {
-  .switcher {
-    flex-direction: row;
-  }
-  .sort-by {
-    flex-wrap: nowrap;
-  }
-  .switcher .sort-by .form-select {
-    margin-left: 10px;
-    margin-right: 12px;
-  }
-}
-
-/* Large devices (desktops, 992px and up)   */
-@media (min-width: 992px) {
-  .switcher .sort-by .form-select {
-    width: auto;
-  }
-  .switcher .sort-by {
-    justify-content: flex-end;
-  }
+/* Large devices (desktops, 820px and up)   */
+@media (min-width: 820px) {
 }
 
 /* X-Large devices (large desktops, 1024px and up)   */
 @media (min-width: 1024px) {
-  /* here your code   */
-}
-
-/* XX-Large devices (larger desktops, 1400px and up)   */
-@media (min-width: 1400px) {
-  /* here your code  */
+  .form-select {
+    width: calc(50% - 2.2em);
+    margin: 0 1.2em 0 1em;
+    }
 }

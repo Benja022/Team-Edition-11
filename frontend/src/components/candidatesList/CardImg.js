@@ -1,7 +1,7 @@
 import classes from "./CardImg.module.css";
 
 function CardImg(props) {
-  //typeof props.candidate.isLookingForJob
+
   return (
     <>
       {props.candidate.isLookingForJob ? (
